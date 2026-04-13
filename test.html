@@ -36,11 +36,11 @@ function main() {
             return;
         })
         .then(responseBody => {
-            document.getElementById('message').innerText = responseBody.message;
+            document.getElementById('area').innerText = responseBody.message;
         })
         .catch(error => {
             console.error('エラーが発生しました:', error);
-            document.getElementById('message').innerText = 'エラーが発生しました。';
+            document.getElementById('area').innerText = 'エラーが発生しました。';
         });
 }
 
