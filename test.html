@@ -24,24 +24,26 @@ Content of the document......
 
 // ここにスクリプトを記述
 
-async function getData() {
-  const url = "https://store.epicgames.com/ja/browse?sortBy=currentPrice&sortDir=ASC&priceTier=tierDiscouted&count=40";
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`レスポンスステータス: ${response.status}`);
-    }
+function main() {
+    url = "https://store.epicgames.com/ja/browse?sortBy=currentPrice&sortDir=ASC&priceTier=tierDiscouted&count=40";
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTPエラー: ${response.status}`);
+            }
+            elem = document.getElementById('area');
+            elem.innerText = response.body;
+            return;
+        })
+        .then(responseBody => {
+            document.getElementById('message').innerText = responseBody.message;
+        })
+        .catch(error => {
+            console.error('エラーが発生しました:', error);
+            document.getElementById('message').innerText = 'エラーが発生しました。';
+        });
+}
 
-    const result = await response.json();
-    console.log(result);
-  } catch (error) {
-    console.error(error.message);
-  }
-}
-function main()
-{
-    
-}
 main();
 
 </script>
