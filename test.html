@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>タイトル</title>
+<meta name="Description" content="" />
+<meta name="Keywords" content="" />
+<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="favicon.ico">
+
+<style>
+.example img {
+	width: 100%;
+}
+</style>
+</head>
+
+<body>
+Content of the document......
+<div id="area"></div>
+</body>
+
+<script type="text/javascript">
+
+// ここにスクリプトを記述
+
+async function getData() {
+  const url = "https://store.epicgames.com/ja/browse?sortBy=currentPrice&sortDir=ASC&priceTier=tierDiscouted&count=40";
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`レスポンスステータス: ${response.status}`);
+    }
+
+    const result = await response.json();
+    console.log(result);
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+function main()
+{
+    
+}
+main();
+
+</script>
+
+</html>
