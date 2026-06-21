@@ -1,50 +1,22 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
-<title>URLデコードツール</title>
-<style>
-  body {
-    font-family: sans-serif;
-    margin: 20px;
-  }
-  textarea {
-    width: 100%;
-    height: 120px;
-    margin-bottom: 10px;
-    font-size: 14px;
-  }
-  #output {
-    white-space: pre-wrap;
-    padding: 10px;
-    border: 1px solid #ccc;
-    background: #f9f9f9;
-  }
-</style>
-</head>
-<body>
-
-<h2>URLデコードツール</h2>
-
-<textarea id="input" placeholder="ここにURLエンコードされた文字列を貼り付けてください"></textarea>
-
-<h3>デコード結果</h3>
-<div id="output"></div>
-
 <script>
-const input = document.getElementById('input');
-const output = document.getElementById('output');
+  const input = document.getElementById("input");
+  const output = document.getElementById("output");
 
-input.addEventListener('input', () => {
-  try {
-    // + をスペースに変換してから decodeURIComponent
-    const decoded = decodeURIComponent(input.value.replace(/\+/g, ' '));
-    output.textContent = decoded;
-  } catch (e) {
-    output.textContent = 'デコードできません（不正な形式）';
+  function decodeWikiUrl(str) {
+    // .E3.82.AB → %E3%82%AB に変換
+    str = str.replace(/\.([0-9A-Fa-f]{2})/g, "%$1");
+
+    // + → スペース
+    str = str.replace(/\+/g, " ");
+
+    return decodeURIComponent(str);
   }
-});
-</script>
 
-</body>
-</html>
+  input.addEventListener("input", () => {
+    try {
+      output.textContent = decodeWikiUrl(input.value);
+    } catch (e) {
+      output.textContent = "デコードできません（不正な形式）";
+    }
+  });
+</script>
