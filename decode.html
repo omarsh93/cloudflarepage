@@ -8,12 +8,27 @@
         font-family: sans-serif;
         margin: 20px;
       }
+
       textarea {
         width: 100%;
         height: 120px;
         margin-bottom: 10px;
         font-size: 14px;
       }
+
+      .title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 5px;
+      }
+
+      #copyBtn {
+        padding: 4px 10px;
+        font-size: 13px;
+        cursor: pointer;
+      }
+
       #output {
         white-space: pre-wrap;
         padding: 10px;
@@ -22,6 +37,7 @@
       }
     </style>
   </head>
+
   <body>
     <h2>URLデコードツール</h2>
 
@@ -30,12 +46,17 @@
       placeholder="ここにURLエンコードされた文字列を貼り付けてください"
     ></textarea>
 
-    <h3>デコード結果</h3>
+    <div class="title">
+      <h3>デコード結果</h3>
+      <button id="copyBtn">コピー</button>
+    </div>
+
     <div id="output"></div>
 
     <script>
       const input = document.getElementById("input");
       const output = document.getElementById("output");
+      const copyBtn = document.getElementById("copyBtn");
 
       function decodeWikiUrl(str) {
         // .E3.82.AB → %E3%82%AB に変換
@@ -52,6 +73,19 @@
           output.textContent = decodeWikiUrl(input.value);
         } catch (e) {
           output.textContent = "デコードできません（不正な形式）";
+        }
+      });
+
+      copyBtn.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(output.textContent);
+          const oldText = copyBtn.textContent;
+          copyBtn.textContent = "コピーしました";
+          setTimeout(() => {
+            copyBtn.textContent = oldText;
+          }, 1500);
+        } catch (e) {
+          alert("コピーに失敗しました");
         }
       });
     </script>
